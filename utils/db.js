@@ -1,4 +1,3 @@
-import sha1 from 'sha1';
 import { MongoClient } from 'mongodb';
 
 class DBClient {
@@ -46,13 +45,6 @@ class DBClient {
       console.log(`Error counting the documents: ${error}`);
     }
     return 0;
-  }
-
-  async createUser(email, password) {
-    const newUser = await this.db
-      .collection('users')
-      .insertOne({ email, password: sha1(password) });
-    return newUser;
   }
 }
 
