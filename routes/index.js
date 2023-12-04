@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getStatus, getStats } from '../controllers/AppController';
-import { postNew } from '../controllers/UserController';
+import postNew from '../controllers/UserController';
 
 const router = Router();
 
