@@ -1,4 +1,3 @@
-import sha1 from 'sha1';
 import dbClient from '../utils/db';
 
 const postNew = async (req, res) => {
@@ -10,18 +9,13 @@ const postNew = async (req, res) => {
   if (!password) {
     return res.status(400).json({ error: 'Missing password' });
   }
+  const alreadyEmail = await dbClient.getUserByEmail(email);
 
-  const inDbEmail = await dbClient.db.collection('users').findOne({ email });
-  if (inDbEmail) {
+  if (alreadyEmail) {
     return res.status(400).json({ error: 'Already exist' });
   }
-
-  const sha1Password = sha1(password);
-  const { insertedId } = await dbClient.db
-    .collection('users')
-    .insertOne({ email, password: sha1Password });
-
-  return res.status(201).json({ id: insertedId, email });
+  const insertedId = await dbClient.insertOne(email, password);
+  return res.json({ id: insertedId, email });
 };
 
 // eslint-disable-next-line import/prefer-default-export
