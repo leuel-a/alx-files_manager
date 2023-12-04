@@ -48,16 +48,11 @@ class DBClient {
     return 0;
   }
 
-  async getUserByEmail(email) {
-    const user = await this.db.collection('users').findOne({ email });
-    return user;
-  }
-
-  async insertOne(email, password) {
-    const { insertedId } = await this.db
+  async createUser(email, password) {
+    const newUser = await this.db
       .collection('users')
       .insertOne({ email, password: sha1(password) });
-    return insertedId;
+    return newUser;
   }
 }
 
