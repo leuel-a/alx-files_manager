@@ -6,7 +6,7 @@ class UserController {
     const { email, password } = req.body;
 
     if (!email) {
-      return res.status(400).jon({ error: 'Missing email' });
+      return res.status(400).json({ error: 'Missing email' });
     }
 
     if (!password) {
