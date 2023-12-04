@@ -1,9 +1,10 @@
-import express from 'express';
+import express, { json } from 'express';
 import homeRoutes from './routes/index';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(json());
 app.use('/', homeRoutes);
 
 app.listen(PORT, () => {
