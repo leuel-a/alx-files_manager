@@ -1,11 +1,15 @@
 import { checkRedisToken } from '../utils/authorize';
 import dbClient from '../utils/db';
+import { validatePostRequest } from '../utils/filesRequestValidators';
 
 class FilesController {
   static async postUpload(req, res) {
-    const { error, userId } = await checkRedisToken(req);
+    // Validate the token and get the user ID
+    const { error: e, userId } = await checkRedisToken(req);
+    if (e) return res.status(401).send({ error: e });
 
-    if (error) return res.status(401).send({ error });
+    const { error } = await validatePostRequest(req);
+    if (error) return res.status(400).json({ error });
 
     // prettier-ignore
     const {
