@@ -36,7 +36,7 @@ class FilesController {
       id = insertedId;
     }
 
-    return res.status(401).json({ ...newEntity, id });
+    return res.status(201).json({ ...newEntity, id });
   }
 }
 
