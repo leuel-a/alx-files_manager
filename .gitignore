@@ -6,3 +6,4 @@ redis
 .prettierrc
 .vscode
 *.rdb
+.idea
